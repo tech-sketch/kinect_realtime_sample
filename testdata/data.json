@@ -1,0 +1,14 @@
+var data = {
+	max: 40, data: [
+{x: 230, y: 252, count : 4},
+{x: 210, y: 228, count : 9},
+{x: 230, y: 228, count : 14},
+{x: 270, y: 228, count : 16},
+{x: 330, y: 156, count : 2},
+{x: 350, y: 156, count : 40},
+{x: 390, y: 132, count : 18},
+{x: 410, y: 108, count : 29},
+{x: 450, y: 84, count : 27},
+{x: 470, y: 84, count : 27},
+{x: 510, y: 36, count : 26},
+]};

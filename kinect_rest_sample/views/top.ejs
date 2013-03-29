@@ -1,0 +1,31 @@
+<% layout('layout') -%>
+<!--<%- partial('header') %>-->
+
+    <div id="container" class="container-fluid">
+      <div class="span12">
+        <h1>Statistics - <%= title %></h1>
+        <div class="row">
+          <div class="span9"/>
+            <ul class="nav nav-tabs">
+            <div class="well">
+                <div id ="heatmapArea" class="tab-pane active" style="width:640px;padding:0;height:480px;cursor:pointer;position:relative;">
+                  <canvas id ="cvs1" width="640" height="480"></canvas>
+                </div>
+            </div>
+          </div>
+          
+          <div id="menu" class="span3"/>
+            <div class="well">
+              <h4>統計情報の内容</h4>
+              
+              <h5>HeatMap</h5>
+              <p>パネル上で実際に触った場所をHeatMapで表示。heatmap.jsを使用。
+              Kinectから送信されたデータを元にリアルタイム更新される。</p>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/script.js"></script>
