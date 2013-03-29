@@ -423,22 +423,10 @@ int main(int argc, char *argv[])
 		//websocketcount
 		int wscount = 0;
 
-		//curl
-		CURL *curl;
-		CURLcode res;
-		
+		//bool curlflag
+		int curlflag = 1;
 
-		curl = curl_easy_init();
-
-		if(curl) {
-			curl_easy_setopt(curl, CURLOPT_PROXY, "XXX.XXX.XXX.XXX:XXXX");
-			curl_easy_setopt(curl, CURLOPT_PROXYUSERPWD,"username:password");
-			curl_easy_setopt(curl, CURLOPT_URL, "http://url.to.aws:8888/connections/");
-			curl_easy_setopt(curl, CURLOPT_POST, 1L);
-		}
-
-
-		if(argc != 24) {
+		if(argc != 25) {
 			;
 		} else {
 			rows = atoi(argv[1]);
@@ -467,6 +455,24 @@ int main(int argc, char *argv[])
 			dividesAreaX = atoi(argv[22]);
 			dividesAreaY = atoi(argv[23]);
 
+			//curl flag
+			curlflag = atoi(argv[24]);
+		}
+
+
+		//curl
+		CURL *curl;
+		CURLcode res;
+
+		if(curlflag == 0) { 	
+			curl = curl_easy_init();
+
+			if(curl) {
+				curl_easy_setopt(curl, CURLOPT_PROXY, "XXX.XXX.XXX.XXX:XXXX");
+				curl_easy_setopt(curl, CURLOPT_PROXYUSERPWD,"username:password");
+				curl_easy_setopt(curl, CURLOPT_URL, "http://url.to.aws:8888/connections/");
+				curl_easy_setopt(curl, CURLOPT_POST, 1L);
+			}
 		}
 
 		bool enterFlag = false;
@@ -661,45 +667,47 @@ int main(int argc, char *argv[])
                     cv::imshow( "Front Camera", image );
 
 					wscount++;
-					if (wscount > 120) {
-						std::string stX, stY, stZ;
-						cv::Point3f retPoint;
+					if(curlflag == 0) { 
+						if (wscount > 120) {
+							std::string stX, stY, stZ;
+							cv::Point3f retPoint;
 
-						// Heatmap用データを作成する
-						std::string temp = "connection={\"max\": \"30\", \"data\":[";
-						for (int i = 0; i < depths; i++) {
-							for (int j = 0; j < rows; j++) {
-								if(newPointAreaFront[i][j].getTouchCount() > 0) {
+							// Heatmap用データを作成する
+							std::string temp = "connection={\"max\": \"30\", \"data\":[";
+							for (int i = 0; i < depths; i++) {
+								for (int j = 0; j < rows; j++) {
+									if(newPointAreaFront[i][j].getTouchCount() > 0) {
 
-									temp += "{";
-									retPoint = newPointAreaFront[i][j].getCenter();
+										temp += "{";
+										retPoint = newPointAreaFront[i][j].getCenter();
 
-									stX = float2string(retPoint.x);
-									stY = float2string(retPoint.y);
-									stZ = float2string(retPoint.z);
+										stX = float2string(retPoint.x);
+											stY = float2string(retPoint.y);
+										stZ = float2string(retPoint.z);
 
-									temp = temp + "\"x\": \"";
-									temp += stX; 
-									temp += "\", \"y\": \"";
-									temp += stY; 
-									temp += "\" , \"count\" : \"";
-									temp += int2string(newPointAreaFront[i][j].getTouchCount());
-									temp += "\"},";
+										temp = temp + "\"x\": \"";
+										temp += stX; 
+										temp += "\", \"y\": \"";
+										temp += stY; 
+										temp += "\" , \"count\" : \"";
+										temp += int2string(newPointAreaFront[i][j].getTouchCount());
+										temp += "\"},";
+									}
 								}
 							}
-						}
 
-						int length = temp.length();
-						temp.erase(length - 1);
-						temp += "]}";
-						int len = temp.length();
-						char* postthis = new char[len+1];
-						memcpy(postthis, temp.c_str(), len+1);
+							int length = temp.length();
+							temp.erase(length - 1);
+							temp += "]}";
+							int len = temp.length();
+							char* postthis = new char[len+1];
+							memcpy(postthis, temp.c_str(), len+1);
 
-						if(curl) {
-							curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postthis);
-							curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(postthis));
-							res = curl_easy_perform(curl);
+							if(curl) {
+								curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postthis);
+								curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(postthis));
+								res = curl_easy_perform(curl);
+							}
 						}
 						wscount = 0;
 					}
