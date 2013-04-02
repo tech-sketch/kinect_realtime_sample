@@ -468,7 +468,7 @@ int main(int argc, char *argv[])
 			curl = curl_easy_init();
 
 			if(curl) {
-				curl_easy_setopt(curl, CURLOPT_PROXY, "XXX.XXX.XXX.XXX:XXXX");
+				curl_easy_setopt(curl, CURLOPT_PROXY, "XXX.XXX.XXX.XXX:8080");
 				curl_easy_setopt(curl, CURLOPT_PROXYUSERPWD,"username:password");
 				curl_easy_setopt(curl, CURLOPT_URL, "http://url.to.aws:8888/connections/");
 				curl_easy_setopt(curl, CURLOPT_POST, 1L);
@@ -708,8 +708,8 @@ int main(int argc, char *argv[])
 								curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)strlen(postthis));
 								res = curl_easy_perform(curl);
 							}
-						}
 						wscount = 0;
+						}	
 					}
 			}
 			int key = cv::waitKey( 10 );
