@@ -5,7 +5,7 @@ window.addEventListener('load', function() {
   // 受信したmsgをtextareaに表示
   socket.on('message', function(msg){
     data = msg;
-    load();
+    draw();
   });
 }, false);
 
