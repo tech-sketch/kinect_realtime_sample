@@ -14,7 +14,7 @@ template<class T> struct curlData{
 	char* postthis;
 };
 
-// ƒq[ƒgƒ}ƒbƒv—pƒJƒ‰[ì¬
+// ãƒ’ãƒ¼ãƒˆãƒãƒƒãƒ—ç”¨ã‚«ãƒ©ãƒ¼ä½œæˆ
 cv::Vec3b changeColor(uchar color) {
 	cv::Vec3b ret;
 
@@ -48,7 +48,7 @@ cv::Vec3b changeColor(uchar color) {
 }
 
 
-// depht—pƒJƒ‰[ì¬
+// dephtç”¨ã‚«ãƒ©ãƒ¼ä½œæˆ
 cv::Vec3b makeColor(int color) {
 	cv::Vec3b ret;
 
@@ -82,20 +82,20 @@ cv::Vec3b makeColor(int color) {
 }
 
 
-// 2ŸŒ³ƒ|ƒCƒ“ƒgƒGƒŠƒAì¬
+// 2æ¬¡å…ƒãƒã‚¤ãƒ³ãƒˆã‚¨ãƒªã‚¢ä½œæˆ
 pointArea** makePointArea(int areaWidth, int areaHeight, int areaPointX, int areaPointY, int rowNum, int colNum, int intervalX, int intervalY, int minDepth, int maxDepth) {
 
 	int colSize = (areaHeight - (colNum * intervalY)) / colNum ;
 	int rowSize = (areaWidth - (rowNum * intervalX)) / rowNum ;
 
-	// ƒGƒŠƒA‚Ì2ŸŒ³”z—ñ‚ğ€”õ
+	// ã‚¨ãƒªã‚¢ã®2æ¬¡å…ƒé…åˆ—ã‚’æº–å‚™
 	pointArea** newPointArea = new pointArea*[colNum];
 
 	for (int i = 0; i < colNum; i++) {
 		newPointArea[i] = new pointArea[rowNum];
 	}
 
-	// 2ŸŒ³”z—ñ‚Ìƒf[ƒ^‚ğİ’è
+	// 2æ¬¡å…ƒé…åˆ—ã®ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 	for (int i = 0; i < colNum; i++) {
 		for(int j = 0; j < rowNum; j++) {
 			newPointArea[i][j].setAllData(areaPointX + (j * (rowSize + intervalX)),
@@ -111,7 +111,7 @@ pointArea** makePointArea(int areaWidth, int areaHeight, int areaPointX, int are
 	return newPointArea;
 }
 
-// 3ŸŒ³ƒ|ƒCƒ“ƒgƒGƒŠƒAì¬
+// 3æ¬¡å…ƒãƒã‚¤ãƒ³ãƒˆã‚¨ãƒªã‚¢ä½œæˆ
 pointArea*** makePointArea3D(int areaWidth, 
 	                         int areaHeight,
 							 int areaDepth,
@@ -138,7 +138,7 @@ pointArea*** makePointArea3D(int areaWidth,
 }
 
 
-// 2ŸŒ³ƒtƒƒ“ƒg—pƒ|ƒCƒ“ƒgƒGƒŠƒAì¬
+// 2æ¬¡å…ƒãƒ•ãƒ­ãƒ³ãƒˆç”¨ãƒã‚¤ãƒ³ãƒˆã‚¨ãƒªã‚¢ä½œæˆ
 pointArea** makeFrontPointArea(int areaWidth, 
 						       int areaHeight, 
 						       int areaPointX, 
@@ -155,7 +155,7 @@ pointArea** makeFrontPointArea(int areaWidth,
 						       int colNum,
 							   int depthNum) {
 
-	// ³–Ê‚Ìc”‚Ídepths‚Ì”‚ğg—p‚·‚é
+	// æ­£é¢ã®ç¸¦æ•°ã¯depthsã®æ•°ã‚’ä½¿ç”¨ã™ã‚‹
 	int colSize = (areaHeight - (depthNum * intervalY)) / depthNum ;
 	int rowSize = (areaWidth - (rowNum * intervalX)) / rowNum ;
 
@@ -163,14 +163,14 @@ pointArea** makeFrontPointArea(int areaWidth,
 	float sizeWY = areaWY / colNum;
 	float sizeWZ = areaWZ / depthNum;
 
-	// ƒGƒŠƒA‚Ì2ŸŒ³”z—ñ‚ğ€”õ
+	// ã‚¨ãƒªã‚¢ã®2æ¬¡å…ƒé…åˆ—ã‚’æº–å‚™
 	pointArea** newPointArea = new pointArea*[depthNum];
 
 	for (int i = 0; i < depthNum; i++) {
 		newPointArea[i] = new pointArea[rowNum];
 	}
 
-	// 2ŸŒ³”z—ñ‚Ìƒf[ƒ^‚ğİ’è
+	// 2æ¬¡å…ƒé…åˆ—ã®ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 	for (int i = 0; i < depthNum; i++) {
 		for(int j = 0; j < rowNum; j++) {
 			newPointArea[i][j].setPointData(areaPointX + (j * (rowSize + intervalX)),
@@ -190,7 +190,7 @@ pointArea** makeFrontPointArea(int areaWidth,
 }
 
 
-// ³–Êƒf[ƒ^ƒJƒEƒ“ƒg—pƒ|ƒCƒ“ƒgƒGƒŠƒAì¬
+// æ­£é¢ãƒ‡ãƒ¼ã‚¿ã‚«ã‚¦ãƒ³ãƒˆç”¨ãƒã‚¤ãƒ³ãƒˆã‚¨ãƒªã‚¢ä½œæˆ
 researchArea** makeResearchArea(int rows, int cols, int dividesAreaX, int dividesAreaY) {
 
 	int rowNum = (int) rows / dividesAreaX;
@@ -201,7 +201,7 @@ researchArea** makeResearchArea(int rows, int cols, int dividesAreaX, int divide
 
 	researchArea** newResearchArea;
 
-	// ƒGƒŠƒA‚Ì2ŸŒ³”z—ñ‚ğ€”õ
+	// ã‚¨ãƒªã‚¢ã®2æ¬¡å…ƒé…åˆ—ã‚’æº–å‚™
 	newResearchArea = new researchArea*[cols];
 
 	for (int i = 0; i < colNum; i++) {
@@ -247,7 +247,7 @@ researchArea** makeResearchArea(int rows, int cols, int dividesAreaX, int divide
 	return newResearchArea;
 }
 
-// ƒ|ƒCƒ“ƒgƒGƒŠƒAŠJ•ú
+// ãƒã‚¤ãƒ³ãƒˆã‚¨ãƒªã‚¢é–‹æ”¾
 void releasePointArea(pointArea** pointArea, int colNum) {
 	for(int i = 0; i < colNum; i++) {
 		delete pointArea[i];
@@ -280,8 +280,8 @@ void drawRect(cv::Mat rectImage, pointArea pointArea, int count, int colorNum, i
 		int colorUchar = colorNum * 255 / maxColorNum ;
 		cv::Vec3b color = makeColor(colorUchar);
 
-		//•`‰æ
-		// BlueC“h‚è‚Â‚Ô‚µCƒAƒ“ƒ`ƒGƒCƒŠƒAƒX
+		//æç”»
+		// Blueï¼Œå¡—ã‚Šã¤ã¶ã—ï¼Œã‚¢ãƒ³ãƒã‚¨ã‚¤ãƒªã‚¢ã‚¹
 		cv::rectangle(rectImage,
 			          cv::Point(pointArea.getMinX(),pointArea.getMinY()),
 			          cv::Point(pointArea.getMaxX(),pointArea.getMaxY()),
@@ -378,7 +378,7 @@ void drawRectFront(cv::Mat frontImage, pointArea** newPointAreaFront, int rows, 
 	}
 }
 
-//‰æ–Ê€”õ
+//ç”»é¢æº–å‚™
 void cameraInit() {
 		cv::namedWindow("Color Camera", CV_WINDOW_AUTOSIZE|CV_WINDOW_FREERATIO);
 		cv::namedWindow("Front Camera", CV_WINDOW_AUTOSIZE|CV_WINDOW_FREERATIO);
@@ -388,9 +388,9 @@ int main(int argc, char *argv[])
 {
     try {
 
-		// FX‚È•Ï”‚Ìİ’è
+		// è‰²ã€…ãªå¤‰æ•°ã®è¨­å®š
 
-		//pointArea—p‚Ì”z—ñ
+		//pointAreaç”¨ã®é…åˆ—
 		int rows = 64;
 		int cols = 1;
 		int depths = 20;
@@ -469,8 +469,8 @@ int main(int argc, char *argv[])
 
 			if(curl) {
 				curl_easy_setopt(curl, CURLOPT_PROXY, "XXX.XXX.XXX.XXX:8080");
-				curl_easy_setopt(curl, CURLOPT_PROXYUSERPWD,"username:password");
-				curl_easy_setopt(curl, CURLOPT_URL, "http://url.to.aws:8888/connections/");
+				curl_easy_setopt(curl, CURLOPT_PROXYUSERPWD,"user:password");
+				curl_easy_setopt(curl, CURLOPT_URL, "http://example.com:8888/connections/");
 				curl_easy_setopt(curl, CURLOPT_POST, 1L);
 			}
 		}
@@ -495,7 +495,7 @@ int main(int argc, char *argv[])
 		researchArea** newResearchArea = new researchArea*[dividesAreaX];		
 		newResearchArea = makeResearchArea(rows, depths, dividesAreaX, dividesAreaY);
 
-		// OpenNI‚Ì‰Šú‰»
+		// OpenNIã®åˆæœŸåŒ–
 		openni::OpenNI::initialize();
         openni::Device device;
 
@@ -522,54 +522,54 @@ int main(int argc, char *argv[])
 
 		int flag = 0;
 
-		// ƒƒCƒ“ƒ‹[ƒv
+		// ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
 	    while (1) {
 
-			//³–Ê‰æ‘œ‚Ì“Ç‚İ‚İ
+			//æ­£é¢ç”»åƒã®èª­ã¿è¾¼ã¿
 			image = cv::imread("front.png", 1);
 
 			cv::Mat rectImage = cv::Mat::zeros(cv::Size(640, 480), CV_8UC3);
 
-			// OpenNI‚ÌƒJƒ‰[î•ñ‚ğ“Ç‚İ‚Ş
+			// OpenNIã®ã‚«ãƒ©ãƒ¼æƒ…å ±ã‚’èª­ã¿è¾¼ã‚€
 			openni::VideoFrameRef colorFrame;
             colorStream.readFrame( &colorFrame );
 
-			// OpenNI‚Ìdepthî•ñ‚ğ“Ç‚İ‚Ş
+			// OpenNIã®depthæƒ…å ±ã‚’èª­ã¿è¾¼ã‚€
 			openni::VideoFrameRef depthFrame;
 			depthStream.readFrame( &depthFrame );
 
 
 			if ( colorFrame.isValid() ) {
 
-					// ƒJƒ‰[î•ñ‚ğæ“¾
+					// ã‚«ãƒ©ãƒ¼æƒ…å ±ã‚’å–å¾—
                     colorImage = cv::Mat( colorStream.getVideoMode().getResolutionY(),
                                           colorStream.getVideoMode().getResolutionX(),
                                           CV_8UC3, (char*)colorFrame.getData() );
 
-					// BGR ¨ RGBŒ`®‚É•ÏŠ·‚·‚éB
-					cv::cvtColor( colorImage, colorImage, CV_BGR2RGB );
+					// RGB â†’ BGRå½¢å¼ã«å¤‰æ›ã™ã‚‹ã€‚
+					cv::cvtColor( colorImage, colorImage, CV_RGB2BGR );
 
-					// Depthî•ñ‚ğæ“¾
+					// Depthæƒ…å ±ã‚’å–å¾—
                     depthImage = cv::Mat( depthStream.getVideoMode().getResolutionY(),
                                           depthStream.getVideoMode().getResolutionX(),
                                           CV_16U, (char*)depthFrame.getData() );
 
 
-					// ƒJƒƒ‰ã‚Ìdepth’²¸ƒGƒŠƒA‚ğ•`‰æ‚·‚éB
+					// ã‚«ãƒ¡ãƒ©ä¸Šã®depthèª¿æŸ»ã‚¨ãƒªã‚¢ã‚’æç”»ã™ã‚‹ã€‚
 					for (int i = 0; i < cols; i++) {
 						for (int j = 0; j < rows; j++) {
 							newPointArea3D[0][i][j].drawArea(colorImage);
 						}
 					}
 
-					// flag‚ğfalse‚É–ß‚·B
+					// flagã‚’falseã«æˆ»ã™ã€‚
 					for (int i = 0; i < depths; i++) {
 						for (int j = 0; j < rows; j++) {
 							newPointAreaFront[i][j].setTouchFlag(false);
 						}
 					}
 
-					// enterFlag‚ğfalse‚É–ß‚·B
+					// enterFlagã‚’falseã«æˆ»ã™ã€‚
 					enterFlag = false;
 
 					int count = 0;
@@ -577,10 +577,10 @@ int main(int argc, char *argv[])
 					auto videoMode = depthStream.getVideoMode();
 					short* depth = (short*)depthFrame.getData();
 
-					// ’²¸‘ÎÛ”ÍˆÍ‚Ìdepth’l‚Ì’²¸
+					// èª¿æŸ»å¯¾è±¡ç¯„å›²ã®depthå€¤ã®èª¿æŸ»
 					for (int i = 0; i < cols; i++) {
 						for(int j = 0; j < rows; j++) {
-							// ’²¸À•W•ª‚Ìdepth”z—ñ‚ğ€”õ
+							// èª¿æŸ»åº§æ¨™åˆ†ã®depthé…åˆ—ã‚’æº–å‚™
 							int *vec;
 
 							for(int k = depths - 1 ; k >= 0; k--) {
@@ -628,7 +628,7 @@ int main(int argc, char *argv[])
 										newPointAreaFront[x][y].setColorCount(newPointArea3D[k][i][j].getColorCount());
 										newPointAreaFront[x][y].setTouchCount(newPointAreaFront[x][y].getTouchCount() + 1);
 
-										// ƒJƒEƒ“ƒgã¸ƒGƒŠƒA‚Ì•£‚ğ•`‰æ‚·‚é
+										// ã‚«ã‚¦ãƒ³ãƒˆä¸Šæ˜‡ã‚¨ãƒªã‚¢ã®æ·µã‚’æç”»ã™ã‚‹
 										cv::rectangle(image,
 											          cv::Point(newPointAreaFront[x][y].getMinX(), newPointAreaFront[x][y].getMinY()),
 										              cv::Point(newPointAreaFront[x][y].getMaxX(), newPointAreaFront[x][y].getMaxY()),
@@ -659,7 +659,7 @@ int main(int argc, char *argv[])
 					decrementColorCount(newPointAreaFront, rows, depths);
 					drawRectFront(NewImage, newPointAreaFront, rows, depths);
 					
-					// ƒJƒƒ‰‰æ‘œ‚Æƒq[ƒgƒ}ƒbƒv‚ğ‡¬‚·‚éB
+					// ã‚«ãƒ¡ãƒ©ç”»åƒã¨ãƒ’ãƒ¼ãƒˆãƒãƒƒãƒ—ã‚’åˆæˆã™ã‚‹ã€‚
 					cv::add(NewImage, image, image);
 					cv::add(rectImage, colorImage, colorImage);
 
@@ -672,7 +672,7 @@ int main(int argc, char *argv[])
 							std::string stX, stY, stZ;
 							cv::Point3f retPoint;
 
-							// Heatmap—pƒf[ƒ^‚ğì¬‚·‚é
+							// Heatmapç”¨ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã™ã‚‹
 							std::string temp = "connection={\"max\": \"30\", \"data\":[";
 							for (int i = 0; i < depths; i++) {
 								for (int j = 0; j < rows; j++) {
